@@ -13,9 +13,8 @@ Prerequisites:
 - GitHub Account
 - BridgeCrew Account
 
-NB: Ensure docker is accessible by the user jenkins. You can check by running the command;
-
-$ id jenkins
+NB: Ensure docker is accessible by the user jenkins. You can check by running the command;\n
+<head>$ id jenkins</head>
 
 Expect a response like; uid=992(jenkins) gid=992(jenkins) groups=992(jenkins),991(docker)
 

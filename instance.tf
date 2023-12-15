@@ -74,8 +74,8 @@ resource "aws_kms_key" "test-kms" {
 resource "aws_instance" "test-server" {
   # ami           = data.aws_ami.ubuntu.id
   ami           = "ami-06d4b7182ac3480fa"
-  # monitoring = true
-  # ebs_optimized = true
+  monitoring = true
+  ebs_optimized = true
   instance_type = "t2.micro"
   metadata_options {
     http_endpoint = "disabled"

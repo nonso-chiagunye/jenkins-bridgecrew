@@ -16,7 +16,7 @@
 **NB**: Ensure docker is accessible by the user jenkins. You can check by running the command; <br>
 >> $ id jenkins <br>
 
-Expect a response like; uid=992(jenkins) gid=992(jenkins) groups=992(jenkins),991(docker)
+Expect a response like; ***uid=992(jenkins) gid=992(jenkins) groups=992(jenkins),991(docker)***
 
 If not, run the command <br>
 >> $ sudo usermod -aG docker jenkins
@@ -65,10 +65,10 @@ https://www.checkov.io/4.Integrations/Jenkins.html
 Remember to replace the example github url with your project repo url, and at other necessary places. You can check my jenkinsfile for detailed configuration. 
 
 BridgeCrew takes different action when it encounters a security misconfiguration <br>
-**--hard-fail**: This is the default. The pipeline brakes for any misconfiguration encountered <br>
-**-- soft-fail**: Nothing brakes. It notifies of the security misconfiguration <br>
-**--soft-fail-on** <severity> <br>
-**--hard-fail-on** <severity>
+***--hard-fail**: This is the default. The pipeline brakes for any misconfiguration encountered <br>
+***-- soft-fail**: Nothing brakes. It notifies of the security misconfiguration <br>
+***--soft-fail-on** <severity> <br>
+***--hard-fail-on** <severity>
 
 Severity can be **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**. 
 

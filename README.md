@@ -28,7 +28,7 @@ $ sudo systemctl restart jenkins
 
 ## Configuration Steps:
 
-### 1. GitHub WebHook
+## 1. GitHub WebHook
 
 First, ensure the jenkins server is accessible from the internet. In my 'configuration', jenkins is behind a firewall while I used load balancer to listen for traffic from the internet. 
 
@@ -42,20 +42,20 @@ Events: Let me select individual events. Select Pull Requests, Pushes.
 
 Add webhook
 
-### 2a. BridgeCrew GitHub Integration
+## 2a. BridgeCrew GitHub Integration
 
 Login to BridgeCrew, select Integrations, Add Integration, GitHub, Authorize (2FA).
 
 Under repositary acces: choose select repository (select your project repo). 
 
 
-### 2b. BridgeCrew Jenkins Integration
+## 2b. BridgeCrew Jenkins Integration
 
 Integrations, Add Integration, Jenkins, choose subscription type, paste your project repo url. 
 
 Ensure you copy the bc_api_key generated. You will need this to setup the jenkins pipeline.
 
-### 3a. Jenkins Pipeline: BridgeCrew
+## 3a. Jenkins Pipeline: BridgeCrew
 
 In jenkins, create a new pipeline project (New Item -> type project name -> pipeline -> Ok). 
 
@@ -89,7 +89,7 @@ You can configure BridgeCrew to take different action when it encounters a secur
 
 severity can be LOW, MEDIUM, HIGH or CRITICAL. 
 
-### 3b. Jenkins Pipeline: Terraform
+## 3b. Jenkins Pipeline: Terraform
 
 I started with init as the next stage after BridgeCrew scan. You can check my jenkinsfile for detailed script. 
 

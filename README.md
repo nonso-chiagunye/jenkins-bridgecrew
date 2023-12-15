@@ -5,7 +5,7 @@
 </head>
 <body>
 
-# BridgeCrew Jenkins-Pipeline Integration for IaC Scanning
+# BridgeCrew Jenkins-Pipeline Integration for IaC Security
 
 ## Prerequisites:
 
@@ -14,15 +14,15 @@
 - BridgeCrew Account
 
 **NB**: Ensure docker is accessible by the user jenkins. You can check by running the command; <br>
->> $ id jenkins <br>
+>> `$ id jenkins` <br>
 
 Expect a response like; ***uid=992(jenkins) gid=992(jenkins) groups=992(jenkins),991(docker)***
 
 If not, run the command <br>
->> $ sudo usermod -aG docker jenkins
+>> `$ sudo usermod -aG docker jenkins`
 
 Restart Jenkins; <br>
->> $ sudo systemctl restart jenkins
+>> `$ sudo systemctl restart jenkins`
 
 ## Configuration Steps:
 

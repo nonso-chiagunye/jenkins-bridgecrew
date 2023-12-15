@@ -41,7 +41,7 @@ resource "aws_instance" "test-server" {
   # iam_instance_profile = aws_iam_instance_profile.jenkins-server-instance-profile.name
 
   vpc_security_group_ids = [aws_security_group.test-sg.id]
-  subnet_id = "subnet-0088c31ea8f945b10"
+  subnet_id = "subnet-0d993066"
   # user_data = file("jenkins.sh")
 
   root_block_device {

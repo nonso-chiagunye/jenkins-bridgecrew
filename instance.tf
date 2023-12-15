@@ -24,7 +24,7 @@ resource "aws_security_group" "test-sg" {
   }
   
   tags = {
-    Name = "test-sg"
+    Name = "test-sgs"
   }
 }
 

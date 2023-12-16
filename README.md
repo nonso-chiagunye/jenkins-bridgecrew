@@ -73,7 +73,7 @@ BridgeCrew responds to security misconfiguration with different options. You can
 Severity can be **LOW**, **MEDIUM**, or **HIGH**. 
 
 **Example: --hard-fail-on HIGH Severity**
->> `sh 'checkov -d . --bc-api-key $BC_API_KEY --use-enforcement-rules --hard-fail-on HIGH -o cli -o junitxml --output-file-path console,results.xml --repo-id < github_username >/ <repo_name> --branch < branch_name >'`
+>> sh 'checkov -d . --bc-api-key $BC_API_KEY --use-enforcement-rules --hard-fail-on HIGH -o cli -o junitxml --output-file-path console,results.xml --repo-id < github_username >/ <repo_name> --branch < branch_name >'
 
 For ***environment***; <br>
 Setup environment variable for the *bc_api_key* copied in step 2b <br>

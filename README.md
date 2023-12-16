@@ -31,7 +31,7 @@ Restart Jenkins; <br>
 First, ensure the jenkins server is accessible from the internet. In my 'configuration', jenkins is behind a firewall while I used load balancer to listen for traffic from the internet. 
 
 Login to GitHub -> select the repo for the project -> click Settings -> Webhook -> Add Webhook. <br>
-**Url**: <your_jenkins_url>:<port>/github-webhook/ <br>
+**Url**: < your_jenkins_url >:< port >/github-webhook/ <br>
 **Content type**: application/json <br>
 **Events**: Let me select individual events. Select Pull Requests, Pushes. <br>
 Add webhook
@@ -50,6 +50,7 @@ Ensure you copy the *bc_api_key* generated. You will need this to setup the jenk
 
 ## 3a. Jenkins Pipeline: BridgeCrew
 
+***Install Docker Pipeline and Terraform Plugin***
 In jenkins, create a new pipeline project (New Item -> type project name -> pipeline -> Ok). <br>
 
 For ***Build Trigers***; <br>
@@ -70,6 +71,9 @@ BridgeCrew responds to security misconfiguration with different options. You can
 **--hard-fail-on** < severity >
 
 Severity can be **LOW**, **MEDIUM**, or **HIGH**. 
+
+**Example: --hard-fail-on HIGH Severity**
+>> `sh 'checkov -d . --bc-api-key $BC_API_KEY --use-enforcement-rules --hard-fail-on HIGH -o cli -o junitxml --output-file-path console,results.xml --repo-id < github_username >/ <repo_name> --branch < branch_name >'`
 
 For ***environment***; <br>
 Setup environment variable for the *bc_api_key* copied in step 2b <br>

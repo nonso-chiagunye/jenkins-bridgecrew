@@ -51,26 +51,34 @@ Ensure you copy the *bc_api_key* generated. You will need this to setup the jenk
 ## 3a. Jenkins Pipeline: BridgeCrew
 
 In jenkins, create a new pipeline project (New Item -> type project name -> pipeline -> Ok). <br>
-Next, setup environment variable for the *bc_api_key* copied in step 2b <br>
-Manage Jenkins -> Credentials -> System(global) -> Add Credentials. <br>
 
-In the space provided, add the following; <br>
-**Type**: Secret Text <br>
-**Secret**: the api key copied in step 2b <br>
-**ID**: *bc-api-key*
+For **Build Trigers**;
+*--GitHub hook trigger for GITScm polling* (If your jenkins server is accessible over the internet) or <br>
+*--Poll SCM* and schedule for a time of your choice
 
-Go down to the pipeline script space, follow the link below for guide on creating the pipeline stages. <br>
+For **Pipeline script**;
+Follow the link below for guide. <br>
 https://www.checkov.io/4.Integrations/Jenkins.html
 
-Remember to replace the example github url with your project repo url, and at other necessary places. You can check my jenkinsfile for detailed configuration. 
+Remember to replace the example github url with your project repo url, and use your actual branch name. <br> 
+See my *jenkinsfile* for detailed configuration. 
 
-BridgeCrew takes different action when it encounters a security misconfiguration <br>
-***--hard-fail**: This is the default. The pipeline brakes for any misconfiguration encountered <br>
-***-- soft-fail**: Nothing brakes. It notifies of the security misconfiguration <br>
-***--soft-fail-on** <severity> <br>
-***--hard-fail-on** <severity>
+BridgeCrew responds to security misconfiguration with different options. You can set any of the below flags depending on your specific requirement; <br>
+**--hard-fail**: This is the default (You don't realy need to set a flag for it). The pipeline brakes for any misconfiguration encountered <br>
+**-- soft-fail**: Nothing brakes. It notifies of the security misconfiguration <br>
+**--soft-fail-on** < severity > <br>
+**--hard-fail-on** < severity >
 
-Severity can be **LOW**, **MEDIUM**, **HIGH** or **CRITICAL**. 
+Severity can be **LOW**, **MEDIUM**, or **HIGH**. 
+
+For *environment*;
+Setup environment variable for the *bc_api_key* copied in step 2b <br>
+Dashboard -> Manage Jenkins -> Credentials -> System(global) -> Add Credentials. <br>
+
+In the space provided, add the following; <br>
+**Kind**: Secret Text <br>
+**Secret**: the api key copied in step 2b <br>
+**ID**: *bc-api-key*
 
 ## 3b. Jenkins Pipeline: Terraform
 

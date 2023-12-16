@@ -5,7 +5,7 @@
 </head>
 <body>
 
-# BridgeCrew Jenkins-Pipeline Integration for IaC Security
+# BridgeCrew Jenkins CI/CD Integration for IaC Security
 
 ## Prerequisites:
 
@@ -41,7 +41,6 @@ Add webhook
 Login to BridgeCrew -> Integrations -> Add Integration -> GitHub -> Authorize (2FA). <br>
 Under repositary acces: choose select repository (select your project repo). 
 
-
 ## 2b. BridgeCrew Jenkins Integration
 
 Login to BridgeCrew -> Integrations -> Add Integration -> Jenkins. <br>
@@ -50,8 +49,11 @@ Ensure you copy the *bc_api_key* generated. You will need this to setup the jenk
 
 ## 3a. Jenkins Pipeline: BridgeCrew
 
-***Install Docker Pipeline and Terraform Plugin***
-In jenkins, create a new pipeline project (New Item -> type project name -> pipeline -> Ok). <br>
+***Install Docker Pipeline and Terraform Plugin*** <br>
+Dashboard -> Manage Jenkins -> Plugins -> Available Plugins -> Search available plugins -> Install
+
+***Create New Jenkins Pipeline*** <br>
+Dashboard -> New Item -> type project name -> pipeline -> Ok
 
 For ***Build Trigers***; <br>
 *--GitHub hook trigger for GITScm polling* (If your jenkins server is accessible over the internet) or <br>
@@ -86,16 +88,21 @@ In the space provided, add the following; <br>
 
 ## 3b. Jenkins Pipeline: Terraform
 
-I started with *terraform init* as the next stage after BridgeCrew scan. See my jenkinsfile for detailed script. 
+***Configure Terraform Action Parameters*** (Not necessary if you only want to run *terraform apply*) <br>
 
-You may hard-code *terraform apply* in your final stage if you only want to apply with the pipeline. I parameterized because I wanted to use same pipeline for *terraform apply* and *terraform destroy*. So I used placeholder *action* to represent both. To add the parameters;
-
-Click on your pipeline -> Configure -> This project is parameterized. <br>
-**Name**: action <br>
-**Choices**: apply, destroy <br>
+Dashboard -> Your Project -> Configure -> This project is parameterized. <br>
+**Name**: < action_parameters > <br>
+**Choices**: apply, destroy, refresh, validate etc <br>
 Save
 
-Go back to the pipeline and click 'Build with Parameters'.
+***Complete the Pipeline Stages*** <br>
+Include the remaining terraform commands that will run if the BridgeCrew scan returns success <br>
+See my *jenkinsfile* for guide <br>
+Apply and Save
+
+Go back to the pipeline and click 'Build with Parameters'. Select one out of the *action_parameters* above <br>
+
+*On Pushes and Pull Requests, the first action specified will run automatically*
 
 </body>
 </html>

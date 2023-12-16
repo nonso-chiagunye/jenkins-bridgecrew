@@ -52,11 +52,11 @@ Ensure you copy the *bc_api_key* generated. You will need this to setup the jenk
 
 In jenkins, create a new pipeline project (New Item -> type project name -> pipeline -> Ok). <br>
 
-For **Build Trigers**; <br>
+For ***Build Trigers***; <br>
 *--GitHub hook trigger for GITScm polling* (If your jenkins server is accessible over the internet) or <br>
 *--Poll SCM* and schedule for a time of your choice
 
-For **Pipeline script**; <br>
+For ***Pipeline script***; <br>
 Follow the link below for guide. <br>
 https://www.checkov.io/4.Integrations/Jenkins.html
 
@@ -71,7 +71,7 @@ BridgeCrew responds to security misconfiguration with different options. You can
 
 Severity can be **LOW**, **MEDIUM**, or **HIGH**. 
 
-For *environment*; <br>
+For ***environment***; <br>
 Setup environment variable for the *bc_api_key* copied in step 2b <br>
 Dashboard -> Manage Jenkins -> Credentials -> System(global) -> Add Credentials. <br>
 

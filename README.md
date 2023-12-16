@@ -91,7 +91,7 @@ In the space provided, add the following; <br>
 ***Configure Terraform Action Parameters*** (Not necessary if you only want to run *terraform apply*) <br>
 
 Dashboard -> Your Project -> Configure -> This project is parameterized. <br>
-**Name**: < action_parameters > <br>
+**Name**: < parameter_name > <br>
 **Choices**: apply, destroy, refresh, validate etc <br>
 Save
 
@@ -100,7 +100,7 @@ Include the remaining terraform commands that will run if the BridgeCrew scan re
 See my *jenkinsfile* for guide <br>
 Apply and Save
 
-Go back to the pipeline and click 'Build with Parameters'. Select one out of the *action_parameters* above <br>
+Go back to the pipeline and click 'Build with Parameters'. Select one out of the parameter *Choices* above <br>
 
 *On Pushes and Pull Requests, the first action specified will run automatically*
 

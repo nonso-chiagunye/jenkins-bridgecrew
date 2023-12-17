@@ -1,0 +1,157 @@
+<?xml version="1.0" ?>
+<testsuites disabled="0" errors="0" failures="3" tests="12" time="0.0">
+	<testsuite disabled="0" errors="0" failures="3" name="terraform scan" skipped="0" tests="12" time="0">
+		<properties>
+			<property name="directory" value="['.']"/>
+			<property name="add_check" value="False"/>
+			<property name="list" value="False"/>
+			<property name="output" value="['cli', 'junitxml']"/>
+			<property name="output_file_path" value="console,results.xml"/>
+			<property name="output_bc_ids" value="False"/>
+			<property name="include_all_checkov_policies" value="False"/>
+			<property name="quiet" value="False"/>
+			<property name="compact" value="False"/>
+			<property name="framework" value="['all']"/>
+			<property name="skip_framework" value="[]"/>
+			<property name="run_all_external_checks" value="False"/>
+			<property name="soft_fail" value="False"/>
+			<property name="hard_fail_on" value="['HIGH']"/>
+			<property name="bc_api_key" value="cc32e997-5499-48dd-9365-db2a3a0faf76"/>
+			<property name="skip_results_upload" value="False"/>
+			<property name="repo_id" value="nonso-chiagunye/jenkins-bridgecrew"/>
+			<property name="branch" value="main"/>
+			<property name="skip_download" value="False"/>
+			<property name="use_enforcement_rules" value="True"/>
+			<property name="download_external_modules" value="False"/>
+			<property name="external_modules_download_path" value=".external_modules"/>
+			<property name="evaluate_variables" value="True"/>
+			<property name="no_cert_verify" value="False"/>
+			<property name="create_baseline" value="False"/>
+			<property name="output_baseline_as_skipped" value="False"/>
+			<property name="secrets_scan_file_type" value="[]"/>
+			<property name="enable_secret_scan_all_files" value="False"/>
+			<property name="block_list_secret_scan" value="[]"/>
+			<property name="summary_position" value="top"/>
+			<property name="skip_resources_without_violations" value="False"/>
+			<property name="deep_analysis" value="False"/>
+			<property name="no_fail_on_crash" value="False"/>
+			<property name="mask" value="defaultdict(&lt;class 'set'&gt;, {})"/>
+			<property name="scan_secrets_history" value="False"/>
+			<property name="secrets_history_timeout" value="12h"/>
+		</properties>
+		<testcase name="[LOW][CKV_AWS_227] Ensure KMS key is enabled" classname="/instance.tf.aws_kms_key.test-kms" file="/instance.tf"/>
+		<testcase name="[MEDIUM][CKV_AWS_33] Ensure KMS key policy does not contain wildcard (*) principal" classname="/instance.tf.aws_kms_key.test-kms" file="/instance.tf"/>
+		<testcase name="[LOW][CKV_AWS_260] Ensure no security groups allow ingress from 0.0.0.0:0 to port 80" classname="/instance.tf.aws_security_group.test-sg" file="/instance.tf"/>
+		<testcase name="[MEDIUM][CKV_AWS_277] Ensure no security groups allow ingress from 0.0.0.0:0 to port -1" classname="/instance.tf.aws_security_group.test-sg" file="/instance.tf"/>
+		<testcase name="[HIGH][CKV_AWS_46] Ensure no hard-coded secrets exist in EC2 user data" classname="/instance.tf.aws_instance.test-server" file="/instance.tf"/>
+		<testcase name="[HIGH][CKV_AWS_88] EC2 instance should not have public IP." classname="/instance.tf.aws_instance.test-server" file="/instance.tf"/>
+		<testcase name="[HIGH][CKV_AWS_79] Ensure Instance Metadata Service Version 1 is not enabled" classname="/instance.tf.aws_instance.test-server" file="/instance.tf"/>
+		<testcase name="[HIGH][CKV_AWS_8] Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted" classname="/instance.tf.aws_instance.test-server" file="/instance.tf"/>
+		<testcase name="[LOW][CKV2_AWS_5] Ensure that Security Groups are attached to another resource" classname="/instance.tf.aws_security_group.test-sg" file="/instance.tf"/>
+		<testcase name="[LOW][CKV_AWS_23] Ensure every security groups rule has a description" classname="/instance.tf.aws_security_group.test-sg" file="/instance.tf">
+			<failure type="failure" message="Ensure every security groups rule has a description">
+Resource: aws_security_group.test-sg
+File: /instance.tf: 7-29
+Guideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31
+
+		7  | resource &quot;aws_security_group&quot; &quot;test-sg&quot; {
+		8  |   vpc_id      = &quot;vpc-6ffe7f04&quot;
+		9  |   name        = &quot;test-sg&quot;
+		10 |   description = &quot;test security group&quot;
+		11 | 
+		12 |   egress {
+		13 |     from_port   = 0
+		14 |     to_port     = 0
+		15 |     protocol    = &quot;-1&quot;
+		16 |     cidr_blocks = [&quot;0.0.0.0/0&quot;]
+		17 |   }
+		18 | 
+		19 |     ingress {
+		20 |     from_port   = 22
+		21 |     to_port     = 22
+		22 |     protocol    = &quot;tcp&quot;
+		23 |     cidr_blocks = [&quot;91.73.64.16/32&quot;]
+		24 |   }
+		25 |   
+		26 |   tags = {
+		27 |     Name = &quot;test-sgs&quot;
+		28 |   }
+		29 | }
+</failure>
+		</testcase>
+		<testcase name="[MEDIUM][CKV_AWS_126] Ensure that detailed monitoring is enabled for EC2 instances" classname="/instance.tf.aws_instance.test-server" file="/instance.tf">
+			<failure type="failure" message="Ensure that detailed monitoring is enabled for EC2 instances">
+Resource: aws_instance.test-server
+File: /instance.tf: 31-60
+Guideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances
+
+		31 | resource &quot;aws_instance&quot; &quot;test-server&quot; {
+		32 |   # ami           = data.aws_ami.ubuntu.id
+		33 |   ami           = &quot;ami-06d4b7182ac3480fa&quot;
+		34 |   # monitoring = true
+		35 |   # ebs_optimized = true
+		36 |   instance_type = &quot;t2.micro&quot;
+		37 |   metadata_options {
+		38 |     http_endpoint = &quot;disabled&quot;
+		39 |    }
+		40 |   # key_name      = var.KEY_NAME
+		41 |   # iam_instance_profile = aws_iam_instance_profile.jenkins-server-instance-profile.name
+		42 | 
+		43 |   vpc_security_group_ids = [aws_security_group.test-sg.id]
+		44 |   subnet_id = &quot;subnet-0d993066&quot;
+		45 |   # user_data = file(&quot;jenkins.sh&quot;)
+		46 | 
+		47 |   root_block_device {
+		48 |     delete_on_termination = true 
+		49 |     volume_type = &quot;gp2&quot;
+		50 |     volume_size = &quot;10&quot;
+		51 |     # iops = var.volume_type == &quot;gp2&quot; ? null : var.volume_iops
+		52 |     # throughput = var.volume_type != &quot;gp3&quot; ? null : var.throughput
+		53 |     encrypted = true 
+		54 |     kms_key_id = aws_kms_key.test-kms.id 
+		55 |   }
+		56 | 
+		57 |   tags = {
+		58 |     Name = &quot;test-kms&quot;
+		59 |   }
+		60 | }</failure>
+		</testcase>
+		<testcase name="[LOW][CKV_AWS_135] Ensure that EC2 is EBS optimized" classname="/instance.tf.aws_instance.test-server" file="/instance.tf">
+			<failure type="failure" message="Ensure that EC2 is EBS optimized">
+Resource: aws_instance.test-server
+File: /instance.tf: 31-60
+Guideline: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized
+
+		31 | resource &quot;aws_instance&quot; &quot;test-server&quot; {
+		32 |   # ami           = data.aws_ami.ubuntu.id
+		33 |   ami           = &quot;ami-06d4b7182ac3480fa&quot;
+		34 |   # monitoring = true
+		35 |   # ebs_optimized = true
+		36 |   instance_type = &quot;t2.micro&quot;
+		37 |   metadata_options {
+		38 |     http_endpoint = &quot;disabled&quot;
+		39 |    }
+		40 |   # key_name      = var.KEY_NAME
+		41 |   # iam_instance_profile = aws_iam_instance_profile.jenkins-server-instance-profile.name
+		42 | 
+		43 |   vpc_security_group_ids = [aws_security_group.test-sg.id]
+		44 |   subnet_id = &quot;subnet-0d993066&quot;
+		45 |   # user_data = file(&quot;jenkins.sh&quot;)
+		46 | 
+		47 |   root_block_device {
+		48 |     delete_on_termination = true 
+		49 |     volume_type = &quot;gp2&quot;
+		50 |     volume_size = &quot;10&quot;
+		51 |     # iops = var.volume_type == &quot;gp2&quot; ? null : var.volume_iops
+		52 |     # throughput = var.volume_type != &quot;gp3&quot; ? null : var.throughput
+		53 |     encrypted = true 
+		54 |     kms_key_id = aws_kms_key.test-kms.id 
+		55 |   }
+		56 | 
+		57 |   tags = {
+		58 |     Name = &quot;test-kms&quot;
+		59 |   }
+		60 | }</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

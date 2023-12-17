@@ -12,11 +12,11 @@
 - Jenkins Server running Terraform and Docker
 - GitHub Account
 - BridgeCrew Account
+- Ensure that user *jenkins* is part of *docker* group. You can check by running the command;
 
-**NB**: Ensure docker is accessible by the user jenkins. You can check by running the command; <br>
->> `$ id jenkins` <br>
+>> `$ id jenkins`
 
-Expect a response like; ***uid=992(jenkins) gid=992(jenkins) groups=992(jenkins),991(docker)***
+Expected response like; ***uid=992(jenkins) gid=992(jenkins) groups=992(jenkins),991(docker)***
 
 If not, run the command <br>
 >> `$ sudo usermod -aG docker jenkins`
@@ -28,7 +28,7 @@ Restart Jenkins; <br>
 
 ## 1. GitHub WebHook
 
-First, ensure the jenkins server is accessible from the internet. In my 'configuration', jenkins is behind a firewall while I used load balancer to listen for traffic from the internet. 
+First, ensure the jenkins server is accessible from the internet. In my *infrastructure*, jenkins is behind a firewall while I used load balancer to listen for traffic from the internet. 
 
 Login to GitHub -> select the repo for the project -> click Settings -> Webhook -> Add Webhook. <br>
 **Url**: < your_jenkins_url >:< port >/github-webhook/ <br>
@@ -99,6 +99,9 @@ Save
 Include the remaining terraform commands that will run if the BridgeCrew scan returns success <br>
 See my *jenkinsfile* for guide <br>
 Apply and Save
+
+***Required Secrets*** <br>
+I attached IAM profile with permission that allows jenkins server to create infrastructure, so I do not need access/secret keys. If your setup requires access keys, include them in your environment variables. Follow the same step in 3a to create AWS Access and Secret keys. *Kind: AWS Credentials*
 
 Go back to the pipeline and click 'Build with Parameters'. Select one out of the parameter *Choices* above <br>
 

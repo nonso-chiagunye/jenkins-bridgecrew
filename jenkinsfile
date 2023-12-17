@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+    
+    environment {
+      BC_API_KEY = credentials('bc-api-key')
+   }
+       
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/nonso-chiagunye/jenkins-bridgecrew'
+                stash includes: '**/*', name: 'jenkins-bridgecrew'
+            }
+        }
+        stage('Checkov') {
+            steps {
+                script {
+                    docker.image('bridgecrew/checkov:latest').inside("--entrypoint=''") {
+                        unstash 'jenkins-bridgecrew'
+                        try {
+                            sh 'checkov -d . --bc-api-key $BC_API_KEY --use-enforcement-rules --hard-fail-on HIGH -o cli -o junitxml --output-file-path console,results.xml --repo-id nonso-chiagunye/jenkins-bridgecrew --branch main'
+                            junit skipPublishingChecks: true, testResults: 'results.xml'
+                        } catch (err) {
+                            junit skipPublishingChecks: true, testResults: 'results.xml'
+                            throw err
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('init') {
+           steps {
+               sh ('terraform init -reconfigure')
+           }
+       }
+       
+       stage('plan') {
+           steps {
+               sh ('terraform plan')
+           }
+       }
+       
+       stage('Action') {
+           steps {
+               echo 'Terraform action is --> ${action}'
+               sh ('terraform ${action} --auto-approve')
+           }
+       }
+       stage('Upload') {
+           steps {
+            s3Upload(file:'results.xml', bucket:'s3-bucket-for-jenkins-artifact', path:'/var/lib/jenkins/workspace/bridgecrew-pipeline/')
+         }
+       }
+     }
+    options {
+        preserveStashes()
+        timestamps()
+    }
+}
